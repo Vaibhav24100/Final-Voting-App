@@ -1,0 +1,31 @@
+<form method="post">
+    {% csrf_token %}
+    <h2>Results</h2>
+    <input type="text" name="code" placeholder="Enter code">
+    <button type="submit">Get Results</button>
+
+    {% if questions %}
+        <h3>Voting Results</h3>
+        {% for question in questions %}
+            <h4>{{ question.text }}</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Votes</th>
+                </tr>
+                {% for option in question.option_set.all %}
+                    <tr>
+                        <td>{{ option.text }}</td>
+                        <td>{{ option.votes }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    {% else %}
+        <p>No results available for the entered code.</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</form>

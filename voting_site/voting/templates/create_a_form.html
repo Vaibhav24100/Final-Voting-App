@@ -1,0 +1,24 @@
+
+{% load custom_filters %}  <!-- Load the custom filter -->
+
+<form method="post">
+    {% csrf_token %}
+    <h2>Create Voting Form</h2>
+    <label>Code: {{ code }}</label>  <!-- This will show the generated code -->
+    <h3>Questions</h3>
+    {% for i in 3|range_filter %}  <!-- Use the custom filter here -->
+        <div>
+            <label for="question_{{ i }}">Question {{ i|add:1 }}:</label>
+            <input type="text" id="question_{{ i }}" name="question_{{ i }}" value="{{ questions.i }}">
+            <label for="option1_{{ i }}">Option 1:</label>
+            <input type="text" id="option1_{{ i }}" name="option1_{{ i }}" value="{{ options.i.0 }}">
+            <label for="option2_{{ i }}">Option 2:</label>
+            <input type="text" id="option2_{{ i }}" name="option2_{{ i }}" value="{{ options.i.1 }}">
+            <label for="option3_{{ i }}">Option 3:</label>
+            <input type="text" id="option3_{{ i }}" name="option3_{{ i }}" value="{{ options.i.2 }}">
+            <label for="option4_{{ i }}">Option 4:</label>
+            <input type="text" id="option4_{{ i }}" name="option4_{{ i }}" value="{{ options.i.3 }}">
+        </div>
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
